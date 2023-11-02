@@ -3,6 +3,8 @@ package com.merpyzf.wpml
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.merpyzf.lib.wpml.FinishAction
+import com.merpyzf.lib.wpml.FlyToWayLineMode
 import com.merpyzf.lib.wpml.WPML
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     private fun make() {
         WPML.Waypoint().make {
             missionConfig {
-                flyToWayLineMode("pointToPoint")
-                finishAction("noAction")
+                flyToWayLineMode(FlyToWayLineMode.POINT_TO_POINT)
+                finishAction(FinishAction.NO_ACTION)
                 exitOnRCLost("executeLostAction")
                 executeRCLostAction("landing")
                 takeOffSecurityHeight(1000)

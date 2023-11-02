@@ -111,6 +111,7 @@ class WPML {
         }
     }
 
+    @ScopeMarker
     open class MissionConfig {
         val rootElement: Element = DocumentHelper.createElement(TAG.MISSION_CONFIG.text)
 
@@ -125,8 +126,8 @@ class WPML {
          *      （M30）飞行器起飞至“安全起飞高度”，再倾斜爬升至首航点。如果首航点高度低于“安全起飞高度”，则先平飞后下降。
          *      支持机型：M300 RTK，M350 RTK，M30/M30T，M3E/M3T/M3M
          */
-        fun flyToWayLineMode(mode: String) {
-            rootElement.addElement(TAG.FLY_TO_WAY_LINE_MODE.text).addText(mode)
+        fun flyToWayLineMode(mode: FlyToWayLineMode) {
+            rootElement.addElement(TAG.FLY_TO_WAY_LINE_MODE.text).addText(mode.text)
         }
 
         /**
@@ -138,8 +139,8 @@ class WPML {
          *      gotoFirstWaypoint：飞行器完成航线任务后，立即飞向航线起始点，到达后退出航线模式。* 注：以上动作执行过程，若飞行器退出了航线模式且进入失控状态，则会优先执行失控动作。
          * 支持机型：M300 RTK，M350 RTK，M30/M30T，M3E/M3T/M3M
          */
-        fun finishAction(action: String) {
-            rootElement.addElement(TAG.FINISH_ACTION.text).addText(action)
+        fun finishAction(action: FinishAction) {
+            rootElement.addElement(TAG.FINISH_ACTION.text).addText(action.text)
         }
 
         /**
@@ -231,6 +232,7 @@ class WPML {
             block.invoke(payloadInfo)
         }
 
+        @ScopeMarker
         class DroneInfo {
             val rootElement: Element = DocumentHelper.createElement(TAG.DRONE_INFO.text)
 
@@ -264,6 +266,7 @@ class WPML {
             }
         }
 
+        @ScopeMarker
         class PayloadInfo {
             val rootElement: Element = DocumentHelper.createElement(TAG.PAYLOAD_INFO.text)
 
@@ -304,6 +307,7 @@ class WPML {
         }
     }
 
+    @ScopeMarker
     class Folder {
         val rootElement: Element = DocumentHelper.createElement(TAG.Folder.text)
 
@@ -441,6 +445,7 @@ class WPML {
             block.invoke(placeMark)
         }
 
+        @ScopeMarker
         class PlaceMark {
             val rootElement: Element = DocumentHelper.createElement(TAG.PLACEMARK.text)
             fun point(block: Point.() -> Unit) {
@@ -618,6 +623,7 @@ class WPML {
                 block.invoke(actionGroup)
             }
 
+            @ScopeMarker
             class Point {
                 val rootElement: Element = DocumentHelper.createElement(TAG.POINT.text)
 
@@ -633,6 +639,7 @@ class WPML {
                 }
             }
 
+            @ScopeMarker
             class ActionGroup {
                 val rootElement: Element = DocumentHelper.createElement(TAG.ACTION_GROUP.text)
 
@@ -687,6 +694,7 @@ class WPML {
                     block.invoke(action)
                 }
 
+                @ScopeMarker
                 class ActionTrigger {
                     val rootElement: Element =
                         DocumentHelper.createElement(TAG.ACTION_TRIGGER.text)
@@ -715,6 +723,7 @@ class WPML {
                     }
                 }
 
+                @ScopeMarker
                 class Action {
                     val rootElement: Element = DocumentHelper.createElement(TAG.ACTION.text)
 
@@ -754,6 +763,7 @@ class WPML {
                         block.invoke(actionActuatorFuncParam)
                     }
 
+                    @ScopeMarker
                     class ActionActuatorFuncParam {
                         val rootElement: Element =
                             DocumentHelper.createElement(TAG.ACTION_ACTUATOR_FUNC_PARAM.text)
@@ -910,6 +920,7 @@ class WPML {
             }
         }
 
+        @ScopeMarker
         open class GlobalWaypointHeadingParam {
             var rootElement: Element =
                 DocumentHelper.createElement(TAG.GLOBAL_WAYPOINT_HEADING_PARAM.text)
@@ -959,12 +970,14 @@ class WPML {
             }
         }
 
+        @ScopeMarker
         class WayPointHeadingParam : GlobalWaypointHeadingParam() {
             init {
                 rootElement = DocumentHelper.createElement(TAG.WAYPOINT_HEADING_PARAM.text)
             }
         }
 
+        @ScopeMarker
         class WaypointTurnParam {
             val rootElement: Element = DocumentHelper.createElement(TAG.WAYPOINT_TURN_PARAM.text)
 
@@ -994,6 +1007,7 @@ class WPML {
             }
         }
 
+        @ScopeMarker
         class WayLineCoordinateSysParam {
             var rootElement: Element =
                 DocumentHelper.createElement(TAG.WAYLINE_COORDINATE_SYS_PARAM.text)
